@@ -1,5 +1,5 @@
 {
-  "name": "todo-app",
+  "name": "cherche-trouve",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stagnant-sys/todo-app.git"
+    "url": "git+https://github.com/stagnant-sys/cherche-trouve.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/stagnant-sys/todo-app/issues"
+    "url": "https://github.com/stagnant-sys/cherche-trouve/issues"
   },
-  "homepage": "https://github.com/stagnant-sys/todo-app#readme",
+  "homepage": "https://github.com/stagnant-sys/cherche-trouve#readme",
   "devDependencies": {
     "css-loader": "^6.7.3",
     "style-loader": "^3.3.1",

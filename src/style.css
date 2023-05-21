@@ -1,0 +1,19 @@
+#image-container {
+  margin: 500px;
+  position: relative;
+  height: 1000px;
+  width: 1000px;
+  border: 1px solid black; }
+  #image-container img {
+    max-height: 100%;
+    max-width: 100%; }
+
+.target {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  left: 100%;
+  top: 100%;
+  border: 3px solid black; }
+
+/*# sourceMappingURL=style.css.map */
