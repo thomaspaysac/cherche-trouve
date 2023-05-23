@@ -25,11 +25,13 @@
 
 #dropdown-choices {
   position: absolute;
-  height: 100px;
+  height: auto;
   width: 100px;
   border: 1px solid black;
   background-color: white; }
   #dropdown-choices ul {
-    margin: 0; }
+    margin: 0;
+    padding: 0;
+    list-style-type: none; }
 
 /*# sourceMappingURL=style.css.map */

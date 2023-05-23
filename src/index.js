@@ -1,20 +1,58 @@
 import './style.css';
 import { displayTarget, displayDropdown } from './DOMElements';
+import { db } from './firebase';
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  setDoc,
+  getDocs,
+  updateDoc,
+  doc,
+  getDoc,
+  serverTimestamp,
+} from 'firebase/firestore';
 
 const image_container = document.getElementById('image-container');
 const image = document.getElementById('image');
+
+async function getData () {
+  const imageData = doc(db, 'imagesDB', 'image1');
+  const result = await getDoc(imageData);
+  console.log(result.data().data);
+}
+
+getData();
+
 const templateData = [
-  {char: 'Mario',
-  coord: [113, 366],
+  {
+    char: 'Mario',
+    coord: [113, 366],
+  },
+  {
+    char: 'Peach',
+    coord: [202, 674]
+  },
+  {
+    char: 'Luigi',
+    coord: [244, 872]
+  },
+  {
+    char: 'Eggman',
+    coord: [27, 393]
   }
 ];
 
 // Vérifie si le cadre contient le personnage
-const checkCharacter = (x, y, target) => {
-  console.log(x, y, target[0]);
-  if ((target[0] -40) <= x && (target[0] +40) >= x
-      && (target[1] -40) <= y && (target[1] +40) >= y) {
-    console.log('found!');
+const checkCharacter = (x, y, coord, character) => {
+  console.log(x, y, coord);
+  if ((coord[0] -40) <= x && (coord[0] +40) >= x
+      && (coord[1] -40) <= y && (coord[1] +40) >= y) {
+    console.log(`You found ${character}!`);
   } else {
     console.log('nope');
   }
@@ -40,14 +78,16 @@ image.addEventListener('click', (e) => {
     image_container.removeChild(targetBox);
     image_container.removeChild(dropdown);
     displayTarget(tx, ty);
-    displayDropdown(tx, ty);
-    checkCharacter(x, y, templateData[0].coord);
+    displayDropdown(tx, ty, x, y, templateData);
+    //checkCharacter(x, y, templateData[0].coord, templateData[0].char);
   } else {
     displayTarget(tx, ty);
-    displayDropdown(tx, ty);
-    checkCharacter(x, y, templateData[0].coord);
+    displayDropdown(tx, ty, x, y, templateData);
+    //checkCharacter(x, y, templateData[0].coord, templateData[0].char);
   }
 })
+
+export { checkCharacter };
 
 // Récupérer coordonées du click
 // Ajouter un élément cadre aux coordonnées du click

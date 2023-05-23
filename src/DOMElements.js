@@ -1,3 +1,5 @@
+import { checkCharacter } from ".";
+
 const image_container = document.getElementById('image-container');
 const image = document.getElementById('image');
 
@@ -9,12 +11,21 @@ const displayTarget = (x, y) => {
   image_container.appendChild(element);
 }
 
-const displayDropdown = (x, y) => {
+const displayDropdown = (tx, ty, x, y, data) => {
   const element = document.createElement('div');
   element.setAttribute('id', 'dropdown-choices');
-  element.style.left = `${x + 105}px`;
-  element.style.top = `${y}px`;
-  element.innerHTML = ' <ul><li>Choix 1</li><li>Choix 2</li><li>Choix 3</li><li>Choix 4</li><li>Choix 5</li></ul>';
+  element.style.left = `${tx + 90}px`;
+  element.style.top = `${ty}px`;
+  const list = document.createElement('ul');
+  for (let i = 0; i < data.length; i++) {
+    const listItem = document.createElement('li');
+    listItem.textContent = data[i].char;
+    listItem.addEventListener('click', () => {
+      checkCharacter(x, y, data[i].coord, data[i].char);
+    })
+    list.appendChild(listItem);
+  }
+  element.appendChild(list);
   image_container.appendChild(element);
 }
 
