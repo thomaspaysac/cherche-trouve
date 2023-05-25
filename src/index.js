@@ -17,17 +17,44 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+// DOM Elements
 const image_container = document.getElementById('image-container');
 const image = document.getElementById('image');
 
+
+// Firebase functions
 async function getData () {
   const imageData = doc(db, 'imagesDB', 'image1');
   const result = await getDoc(imageData);
-  console.log(result.data().data);
+  return result.data().data;
 }
 
-getData();
+const storage = getStorage();
 
+const loadImage = (img) => {
+  const imageRef = ref(storage, `images/${img}.jpg`);
+  getDownloadURL(imageRef)
+  .then((url) => {
+    image_container.style.display = 'block';
+    image.src = url;
+  })
+  .catch((error) => {
+    switch (error.code) {
+      case 'storage/object-not-found':
+        break;
+      case 'storage/unauthorized':
+        break;
+      case 'storage/canceled':
+        break;
+      case 'storage/unknown':
+        break;
+    }
+  });
+}
+
+// Test Data
 const templateData = [
   {
     char: 'Mario',
@@ -46,6 +73,8 @@ const templateData = [
     coord: [27, 393]
   }
 ];
+
+// App
 
 // Vérifie si le cadre contient le personnage
 const checkCharacter = (x, y, coord, character) => {
@@ -85,6 +114,14 @@ image.addEventListener('click', (e) => {
     displayDropdown(tx, ty, x, y, templateData);
     //checkCharacter(x, y, templateData[0].coord, templateData[0].char);
   }
+})
+
+// Test functions
+const testButton = document.getElementById('test-button');
+testButton.addEventListener('click', async () => {
+  const charData = await getData();
+  console.log(charData);
+  loadImage(1);
 })
 
 export { checkCharacter };

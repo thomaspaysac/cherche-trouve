@@ -12,6 +12,7 @@
 }
 
 #image-container {
+  display: none;
   position: relative;
   height: fit-content;
   width: fit-content;
@@ -28,6 +29,8 @@
   height: 80px;
   width: 80px;
   border: 3px solid black;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(123,166,180,0.2) 20%, rgba(173,216,230,0.2) 100%);
 }
 
 #dropdown-choices {
