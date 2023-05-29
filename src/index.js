@@ -18,31 +18,54 @@ import {
 } from 'firebase/firestore';
 
 import { getStorage, ref, getDownloadURL, list } from "firebase/storage";
+import { getApp } from 'firebase/app';
 
 // DOM Elements
 const image_container = document.getElementById('image-container');
 const image = document.getElementById('image');
+const timerElement = document.getElementById('timer');
+const gameOverModal = document.getElementById('game-over-modal');
+const characterCounter = document.getElementById('character-counter');
+const imageSelectionButtons = document.querySelectorAll('.image-selection_button');
+
 
 // Global variables
 let charData = [];
+let charCounter;
 let pinImgSrc;
+let timer;
 
 // Initialize game state, load characters data and images
-const initGame = async () => {
+const initGame = async (imgID) => {
+  // Reset game state
   charData = [];
+  charCounter = 0;
+  clearInterval(timer);
+  document.querySelectorAll('.pin-image').forEach(el => el.remove());
+  // Get data from backend
   charData = await getData();
-  loadImage(1);
+  loadImage(imgID);
   loadPinImage();
+  // Start timer
+  const startingTime = new Date().getTime();
+  timer = setInterval(() => { gameTimer(startingTime) }, 1000)
+  
+  updateDisplay();
+}
+
+const endGame = () => {
+  clearInterval(timer);
+  gameOverModal.style.display = 'block';
 }
 
 // Firebase functions
+const storage = getStorage();
+
 async function getData () {
   const imageData = doc(db, 'imagesDB', 'image1');
   const result = await getDoc(imageData);
   return result.data().data;
 }
-
-const storage = getStorage();
 
 const loadImage = (img) => {
   const imageRef = ref(storage, `images/${img}.jpg`);
@@ -73,20 +96,45 @@ const loadPinImage = () => {
   })  
 }
 
+// Modals
+document.getElementById('game-over-modal_close').addEventListener('click', () => gameOverModal.style.display = 'none');
+document.getElementById('game-over-modal_start-again').addEventListener('click', () => {
+  gameOverModal.style.display = 'none';
+  initGame('1');
+});
 
-// App
 
+// Game flow
 // Vérifie si le cadre contient le personnage
-const checkCharacter = (x, y, coord, character, index) => {
+const checkCharacter = (x, y, coord, index) => {
   console.log(x, y, coord);
   if ((coord[0] -40) <= x && (coord[0] +40) >= x && (coord[1] -40) <= y && (coord[1] +40) >= y) {
     charData[index].found = true;
     document.getElementById(charData[index].char).style.display = 'none';
     addPinImage(pinImgSrc, coord[0], coord[1]);
+    charCounter++;
+    updateDisplay();
+    // Si tous les personnages ont été trouvés, arrête le timer
+    if (allCharsFound()) {
+      endGame()
+    }
   } else {
-    console.log('nope');
+    console.log('Nope');
   }
 };
+
+const allCharsFound = () => {
+  const result = charData.every(el => {
+    if (el.found === true) {
+      return true;
+    }
+  });
+  return result;
+};
+
+const updateDisplay = () => {
+  characterCounter.textContent = `${charCounter} / ${charData.length}`;
+}
 
 image.addEventListener('click', (e) => {
   const bounds = image.getBoundingClientRect();
@@ -115,13 +163,33 @@ image.addEventListener('click', (e) => {
   }
 })
 
+// Timer function
+const gameTimer = (startingTime) => {
+  const timeDistance = new Date().getTime() - startingTime;
+  const minutes = Math.floor((timeDistance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeDistance % (1000 * 60)) / 1000);
+  if (seconds < 10 && minutes < 10) {
+    timerElement.textContent = `0${minutes}:0${seconds}`;
+  } else if (seconds < 10) {
+    timerElement.textContent = `${minutes}:0${seconds}`;
+  } else if (minutes < 10) {
+    timerElement.textContent = `0${minutes}:${seconds}`;
+  } else {
+    timerElement.textContent = `${minutes}:${seconds}`;
+  }
+};
+
 // Test functions
 const testButton = document.getElementById('test-button');
 testButton.addEventListener('click', async () => {
-  initGame();
+  initGame('1');
+})
+
+imageSelectionButtons.forEach(el => {
+  el.addEventListener('click', () => initGame(el.textContent))
 })
 
 export { checkCharacter };
 
-// Timer qui commence en début de partie et qui s'arrête lorsque la liste de choix est vide
 // Récapitulatif des personnages à trouver, qui deviennent grisés lorsqu'on les trouve
+// Ajouter leaderboard

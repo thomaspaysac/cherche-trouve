@@ -24,7 +24,7 @@ const displayDropdown = (tx, ty, x, y, data) => {
       const listItem = document.createElement('li');
       listItem.setAttribute('id', data[i].char);
       listItem.textContent = data[i].char;
-      listItem.addEventListener('click', () => checkCharacter(x, y, data[i].coord, data[i].char, i))
+      listItem.addEventListener('click', () => checkCharacter(x, y, data[i].coord, i))
       list.appendChild(listItem);
     }
   }
@@ -40,5 +40,6 @@ const addPinImage = (url, x, y) => {
   element.style.top = `${y - 35}px`;
   image_container.appendChild(element);
 }
+
 
 export { displayTarget, displayDropdown, addPinImage };

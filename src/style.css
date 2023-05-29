@@ -42,4 +42,14 @@
   max-height: 70px;
   max-width: 70px; }
 
+#game-over-modal {
+  display: none;
+  height: 100px;
+  width: 500px;
+  background-color: #ffffff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
 /*# sourceMappingURL=style.css.map */
