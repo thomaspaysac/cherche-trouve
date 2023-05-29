@@ -18,7 +18,7 @@
   width: fit-content;
   border: 1px solid black;
 
-  img {
+  #image {
     max-height: 1000px;
     max-width: 1000px;
   }
@@ -45,4 +45,10 @@
     padding: 0;
     list-style-type: none;
   }
+}
+
+.pin-image {
+  position: absolute;
+  max-height: 70px;
+  max-width: 70px;
 }

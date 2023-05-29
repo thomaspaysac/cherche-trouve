@@ -1,5 +1,5 @@
 import './style.css';
-import { displayTarget, displayDropdown } from './DOMElements';
+import { displayTarget, displayDropdown, addPinImage } from './DOMElements';
 import { db } from './firebase';
 import {
   getFirestore,
@@ -17,12 +17,23 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, list } from "firebase/storage";
 
 // DOM Elements
 const image_container = document.getElementById('image-container');
 const image = document.getElementById('image');
 
+// Global variables
+let charData = [];
+let pinImgSrc;
+
+// Initialize game state, load characters data and images
+const initGame = async () => {
+  charData = [];
+  charData = await getData();
+  loadImage(1);
+  loadPinImage();
+}
 
 // Firebase functions
 async function getData () {
@@ -54,34 +65,24 @@ const loadImage = (img) => {
   });
 }
 
-// Test Data
-const templateData = [
-  {
-    char: 'Mario',
-    coord: [113, 366],
-  },
-  {
-    char: 'Peach',
-    coord: [202, 674]
-  },
-  {
-    char: 'Luigi',
-    coord: [244, 872]
-  },
-  {
-    char: 'Eggman',
-    coord: [27, 393]
-  }
-];
+const loadPinImage = () => {
+  const pinImageRef = ref(storage, `pin.svg`);
+  getDownloadURL(pinImageRef)
+  .then((url) => {
+    pinImgSrc = url;
+  })  
+}
+
 
 // App
 
 // Vérifie si le cadre contient le personnage
-const checkCharacter = (x, y, coord, character) => {
+const checkCharacter = (x, y, coord, character, index) => {
   console.log(x, y, coord);
-  if ((coord[0] -40) <= x && (coord[0] +40) >= x
-      && (coord[1] -40) <= y && (coord[1] +40) >= y) {
-    console.log(`You found ${character}!`);
+  if ((coord[0] -40) <= x && (coord[0] +40) >= x && (coord[1] -40) <= y && (coord[1] +40) >= y) {
+    charData[index].found = true;
+    document.getElementById(charData[index].char).style.display = 'none';
+    addPinImage(pinImgSrc, coord[0], coord[1]);
   } else {
     console.log('nope');
   }
@@ -107,28 +108,20 @@ image.addEventListener('click', (e) => {
     image_container.removeChild(targetBox);
     image_container.removeChild(dropdown);
     displayTarget(tx, ty);
-    displayDropdown(tx, ty, x, y, templateData);
-    //checkCharacter(x, y, templateData[0].coord, templateData[0].char);
+    displayDropdown(tx, ty, x, y, charData);
   } else {
     displayTarget(tx, ty);
-    displayDropdown(tx, ty, x, y, templateData);
-    //checkCharacter(x, y, templateData[0].coord, templateData[0].char);
+    displayDropdown(tx, ty, x, y, charData);
   }
 })
 
 // Test functions
 const testButton = document.getElementById('test-button');
 testButton.addEventListener('click', async () => {
-  const charData = await getData();
-  console.log(charData);
-  loadImage(1);
+  initGame();
 })
 
 export { checkCharacter };
 
-// Récupérer coordonées du click
-// Ajouter un élément cadre aux coordonnées du click
-// Ajouter options en dropdown à côté du cadre
-// Au choix d'une option, envoyer l'option et les coordonnées. Si match, valider le choix, et le retirer de la liste des choix
-// Ajouter une marqueur visuel sur l'image après un choix correct
 // Timer qui commence en début de partie et qui s'arrête lorsque la liste de choix est vide
+// Récapitulatif des personnages à trouver, qui deviennent grisés lorsqu'on les trouve
