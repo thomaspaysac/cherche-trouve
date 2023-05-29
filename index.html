@@ -8,15 +8,29 @@
   <script src="./main.js" defer></script>
 </head>
 <body>
+  <div id="image-selection_container">
+    <button class="image-selection_button">1</button>
+    <button class="image-selection_button">2</button>
+  </div>
 
   <div id="gamezone">
-    <div id="timer">00:00</div>
-    <div id="score">Characters found : 0 / 5</div>
+    <div class="timer_container">
+      Your time: <span id="timer">00:00</span>
+    </div>
+    <div class="character-counter_container">
+      Characters found : <span id="character-counter"></span>
+    </div>
     <div id="image-container">
       <img id="image" alt="image" src="">
     </div>
   </div>
-  <button id="test-button">Test</button>
+  <button id="test-button">Start</button>
+
+  <div id="game-over-modal">
+    <div>You won!</div>
+    <button id="game-over-modal_start-again">Start again</button>
+    <button id="game-over-modal_close">Close</button>
+  </div>
 
 </body>
 </html>
