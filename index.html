@@ -9,8 +9,14 @@
 </head>
 <body>
   <div id="image-selection_container">
-    <button class="image-selection_button">1</button>
-    <button class="image-selection_button">2</button>
+    <div class="image-choice">
+      <div class="image-preview" id="image1-preview"></div>
+      <button class="image-selection_button">1</button>
+    </div>
+    <div class="image-choice">
+      <div class="image-preview" id="image2-preview"></div>
+      <button class="image-selection_button">2</button>
+    </div>
   </div>
 
   <div id="gamezone">
@@ -24,13 +30,17 @@
       <img id="image" alt="image" src="">
     </div>
   </div>
-  <button id="test-button">Start</button>
+  <button id="test-button">Test button</button>
 
   <div id="game-over-modal">
     <div>You won!</div>
     <button id="game-over-modal_start-again">Start again</button>
     <button id="game-over-modal_close">Close</button>
   </div>
+
+  <footer>
+    <div id="image-credits"></div>
+  </footer>
 
 </body>
 </html>
