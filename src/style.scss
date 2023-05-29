@@ -4,6 +4,18 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+// Homepage
+#image-selection_container {
+  display: flex;
+}
+
+.image-preview {
+  height: 500px;
+  width: 300px;
+}
+
+
+// Game display
 #gamezone {
   display: flex;
   flex-direction: column;
@@ -63,3 +75,4 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+

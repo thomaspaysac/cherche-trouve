@@ -5,6 +5,17 @@ import { checkCharacter } from ".";
 const image_container = document.getElementById('image-container');
 const image = document.getElementById('image');
 
+const loadImgPreviews = (imgID) => {
+  const previewContainer = document.getElementById(`image${imgID}-preview`);
+  const imageRef = ref(getStorage(), `images/${imgID}.jpg`);
+  getDownloadURL(imageRef)
+  .then((url) => {
+    previewContainer.style.background = `url('${url}')`;
+    previewContainer.style.backgroundSize = 'contain';
+    previewContainer.style.backgroundRepeat = 'no-repeat';
+  })
+}
+
 const displayTarget = (x, y) => {
   const element = document.createElement('div');
   element.setAttribute('id', 'target-box');
@@ -42,4 +53,4 @@ const addPinImage = (url, x, y) => {
 }
 
 
-export { displayTarget, displayDropdown, addPinImage };
+export { displayTarget, displayDropdown, addPinImage, loadImgPreviews };

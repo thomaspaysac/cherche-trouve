@@ -1,5 +1,5 @@
 import './style.css';
-import { displayTarget, displayDropdown, addPinImage } from './DOMElements';
+import { displayTarget, displayDropdown, addPinImage, loadImgPreviews } from './DOMElements';
 import { db } from './firebase';
 import {
   getFirestore,
@@ -17,7 +17,7 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
-import { getStorage, ref, getDownloadURL, list } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, listAll, getMetadata } from "firebase/storage";
 import { getApp } from 'firebase/app';
 
 // DOM Elements
@@ -27,6 +27,7 @@ const timerElement = document.getElementById('timer');
 const gameOverModal = document.getElementById('game-over-modal');
 const characterCounter = document.getElementById('character-counter');
 const imageSelectionButtons = document.querySelectorAll('.image-selection_button');
+const imageCredits = document.getElementById('image-credits');
 
 
 // Global variables
@@ -34,16 +35,16 @@ let charData = [];
 let charCounter;
 let pinImgSrc;
 let timer;
+const storageImagesList = [];
+
 
 // Initialize game state, load characters data and images
 const initGame = async (imgID) => {
-  // Reset game state
-  charData = [];
-  charCounter = 0;
-  clearInterval(timer);
-  document.querySelectorAll('.pin-image').forEach(el => el.remove());
+  resetGameState();
   // Get data from backend
-  charData = await getData();
+  const imageData = await getData(imgID)
+  charData = imageData.data;
+  imageCredits.textContent = imageData.credits;
   loadImage(imgID);
   loadPinImage();
   // Start timer
@@ -51,6 +52,14 @@ const initGame = async (imgID) => {
   timer = setInterval(() => { gameTimer(startingTime) }, 1000)
   
   updateDisplay();
+}
+
+const resetGameState = () => {
+  charData = [];
+  charCounter = 0;
+  clearInterval(timer);
+  document.querySelectorAll('.pin-image').forEach(el => el.remove());
+  imageCredits.textContent = '';
 }
 
 const endGame = () => {
@@ -61,10 +70,41 @@ const endGame = () => {
 // Firebase functions
 const storage = getStorage();
 
-async function getData () {
-  const imageData = doc(db, 'imagesDB', 'image1');
+const getAllImages = () => {
+  const listRef = ref(storage, 'images');
+  listAll(listRef)
+  .then((res) => {
+    res.items.forEach((itemRef) => {
+      getMetadata(itemRef)
+      .then((medadata) => {
+        const fileName = medadata.name.substring(0, medadata.name.indexOf('.jpg'))
+        storageImagesList.push(fileName);
+        return storageImagesList;
+      })
+    });
+    
+  }
+  )
+  .catch((error) => {
+    switch (error.code) {
+      case 'storage/object-not-found':
+        break;
+      case 'storage/unauthorized':
+        break;
+      case 'storage/canceled':
+        break;
+      case 'storage/unknown':
+        break;
+    }  
+  });
+}
+
+
+
+async function getData (imgID) {
+  const imageData = doc(db, 'imagesDB', imgID);
   const result = await getDoc(imageData);
-  return result.data().data;
+  return result.data();
 }
 
 const loadImage = (img) => {
@@ -95,6 +135,19 @@ const loadPinImage = () => {
     pinImgSrc = url;
   })  
 }
+
+// Load homepage
+const loadHomePage = () => {
+  getAllImages();
+  setTimeout(() => {
+    storageImagesList.forEach(img => {
+      loadImgPreviews(img)
+    })
+  }, 1000)
+};
+
+loadHomePage();
+
 
 // Modals
 document.getElementById('game-over-modal_close').addEventListener('click', () => gameOverModal.style.display = 'none');
@@ -182,14 +235,17 @@ const gameTimer = (startingTime) => {
 // Test functions
 const testButton = document.getElementById('test-button');
 testButton.addEventListener('click', async () => {
-  initGame('1');
+  storageImagesList.forEach(img => {
+    loadImgPreviews(img)
+  });
 })
 
 imageSelectionButtons.forEach(el => {
   el.addEventListener('click', () => initGame(el.textContent))
 })
 
-export { checkCharacter };
+export { checkCharacter, allCharsFound };
 
+// Créer un container et la preview de chaque image présente dans le storage
 // Récapitulatif des personnages à trouver, qui deviennent grisés lorsqu'on les trouve
 // Ajouter leaderboard
