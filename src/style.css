@@ -59,4 +59,46 @@
   left: 50%;
   transform: translate(-50%, -50%); }
 
+#slider {
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  position: relative;
+  overflow: hidden; }
+
+.slide {
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  position: absolute;
+  transition: all 0.5s; }
+
+.slide img {
+  width: 100%;
+  height: 80%;
+  object-fit: cover; }
+
+.btn {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  z-index: 3;
+  cursor: pointer;
+  background-color: #fff;
+  font-size: 18px; }
+
+.btn:active {
+  transform: scale(1.1); }
+
+.btn-prev {
+  top: 45%;
+  left: 2%; }
+
+.btn-next {
+  top: 45%;
+  right: 2%; }
+
 /*# sourceMappingURL=style.css.map */

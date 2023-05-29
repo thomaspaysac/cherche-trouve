@@ -1,5 +1,5 @@
 import './style.css';
-import { displayTarget, displayDropdown, addPinImage, loadImgPreviews } from './DOMElements';
+import { displayTarget, displayDropdown, addPinImage, loadImgPreviews, createSlide } from './DOMElements';
 import { db } from './firebase';
 import {
   getFirestore,
@@ -26,7 +26,6 @@ const image = document.getElementById('image');
 const timerElement = document.getElementById('timer');
 const gameOverModal = document.getElementById('game-over-modal');
 const characterCounter = document.getElementById('character-counter');
-const imageSelectionButtons = document.querySelectorAll('.image-selection_button');
 const imageCredits = document.getElementById('image-credits');
 
 
@@ -141,8 +140,15 @@ const loadHomePage = () => {
   getAllImages();
   setTimeout(() => {
     storageImagesList.forEach(img => {
+      createSlide(img);
       loadImgPreviews(img)
-    })
+      initCarousel();
+      const imageSelectionButtons = document.querySelectorAll('.image-selection_button');
+      imageSelectionButtons.forEach(el => {
+        el.addEventListener('click', () => initGame(el.textContent))
+      })
+      
+    });
   }, 1000)
 };
 
@@ -232,6 +238,48 @@ const gameTimer = (startingTime) => {
   }
 };
 
+// Image carousel
+const initCarousel = () => {
+  const slides = document.querySelectorAll(".slide");
+
+  slides.forEach((slide, i) => {
+    slide.style.transform = `translateX(${i * 100}%)`;
+  });
+  
+  let curSlide = 0;
+  let maxSlide = slides.length - 1;
+  
+  const nextSlide = document.querySelector(".btn-next");
+  
+  nextSlide.addEventListener("click", function () {
+    if (curSlide === maxSlide) {
+      curSlide = 0;
+    } else {
+      curSlide++;
+    }
+    slides.forEach((slide, i) => {
+      slide.style.transform = `translateX(${100 * (i - curSlide)}%)`;
+    });
+  });
+  
+  const prevSlide = document.querySelector(".btn-prev");
+  
+  prevSlide.addEventListener("click", function () {
+    if (curSlide === 0) {
+      curSlide = maxSlide;
+    } else {
+      curSlide--;
+    }
+    slides.forEach((slide, indx) => {
+      slide.style.transform = `translateX(${100 * (indx - curSlide)}%)`;
+    });
+  });  
+}
+
+
+
+
+
 // Test functions
 const testButton = document.getElementById('test-button');
 testButton.addEventListener('click', async () => {
@@ -240,9 +288,6 @@ testButton.addEventListener('click', async () => {
   });
 })
 
-imageSelectionButtons.forEach(el => {
-  el.addEventListener('click', () => initGame(el.textContent))
-})
 
 export { checkCharacter, allCharsFound };
 
