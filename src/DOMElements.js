@@ -5,19 +5,42 @@ import { checkCharacter } from ".";
 const image_container = document.getElementById('image-container');
 const image = document.getElementById('image');
 
-const createSlide = (imgID) => {
+const createSlide = (imgID, data) => {
   const slider = document.getElementById('slider');
-  const slide = document.createElement('div');
+    const slide = document.createElement('div');
     slide.classList.add('slide');
-  const image = document.createElement('img');
-    image.classList.add('image-preview');
-    image.setAttribute('id', `image${imgID}-preview`);
-    //loadImgPreviews(imgID);
-  const selectBtn = document.createElement('button');
-    selectBtn.classList.add('image-selection_button');
-    selectBtn.textContent = imgID;
-  slide.appendChild(image);
-  slide.appendChild(selectBtn);
+      const image = document.createElement('img');
+      image.classList.add('image-preview');
+      image.setAttribute('id', `image${imgID}-preview`);
+      slide.appendChild(image);
+      const slideInfo = document.createElement('div');
+      slideInfo.classList.add('slide-info');
+      slide.appendChild(slideInfo);
+        const slideCredits = document.createElement('div');
+        slideCredits.classList.add('slider_image-credits');
+        slideCredits.textContent = data.credits;
+        slideInfo.appendChild(slideCredits);
+        const charList = document.createElement('ul');
+        charList.classList.add('characters-list');
+        data.data.forEach(el => {
+          const listItem = document.createElement('li');
+          listItem.textContent = el.char;
+          charList.appendChild(listItem);
+        })
+        slideInfo.appendChild(charList);
+        const leaderboard = document.createElement('ul');
+        leaderboard.classList.add('leaderboard');
+        data.leaderboard.forEach(el => {
+          const listItem = document.createElement('li');
+          listItem.textContent = el;
+          leaderboard.appendChild(listItem);
+        });
+        slideInfo.appendChild(leaderboard);
+        const selectBtn = document.createElement('button');
+        selectBtn.classList.add('image-selection_button');
+        selectBtn.setAttribute('data-id', imgID);
+        selectBtn.textContent = 'Play';
+        slideInfo.appendChild(selectBtn);
   slider.appendChild(slide);
 }
 
@@ -26,9 +49,6 @@ const loadImgPreviews = (imgID) => {
   const imageRef = ref(getStorage(), `images/${imgID}.jpg`);
   getDownloadURL(imageRef)
   .then((url) => {
-    /*previewContainer.style.background = `url('${url}')`;
-    previewContainer.style.backgroundSize = 'contain';
-    previewContainer.style.backgroundRepeat = 'no-repeat';*/
     previewContainer.src = url;
   })
 }

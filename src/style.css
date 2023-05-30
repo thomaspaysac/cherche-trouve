@@ -1,16 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Open+Sans:wght@400;700&display=swap");
 * {
+  box-sizing: border-box;
   font-family: 'Open Sans', sans-serif; }
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: black;
+  color: white; }
+  header h1 {
+    font-size: 1.5rem;
+    margin: 0; }
+
+nav ul {
+  list-style-type: none;
+  display: flex; }
 
 #image-selection_container {
   display: flex; }
 
-.image-preview {
-  height: 500px;
-  width: 300px; }
-
 #gamezone {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center; }
@@ -64,19 +76,32 @@
   max-width: 800px;
   height: 500px;
   position: relative;
-  overflow: hidden; }
+  overflow: hidden;
+  border: 5px solid black; }
 
 .slide {
   width: 100%;
   max-width: 800px;
-  height: 500px;
+  height: 100%;
   position: absolute;
-  transition: all 0.5s; }
+  transition: all 0.5s;
+  display: flex; }
 
 .slide img {
-  width: 100%;
-  height: 80%;
+  width: 50%;
+  height: 100%;
   object-fit: cover; }
+
+.image-preview {
+  height: 500px;
+  width: 300px; }
+
+.slide-info {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center; }
 
 .btn {
   position: absolute;

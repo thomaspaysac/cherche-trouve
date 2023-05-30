@@ -27,6 +27,8 @@ const timerElement = document.getElementById('timer');
 const gameOverModal = document.getElementById('game-over-modal');
 const characterCounter = document.getElementById('character-counter');
 const imageCredits = document.getElementById('image-credits');
+const homePage = document.getElementById('homepage');
+const gamezone = document.getElementById('gamezone');
 
 
 // Global variables
@@ -46,7 +48,8 @@ const initGame = async (imgID) => {
   imageCredits.textContent = imageData.credits;
   loadImage(imgID);
   loadPinImage();
-  // Start timer
+  // Restart timer
+  clearInterval(timer);
   const startingTime = new Date().getTime();
   timer = setInterval(() => { gameTimer(startingTime) }, 1000)
   
@@ -137,15 +140,20 @@ const loadPinImage = () => {
 
 // Load homepage
 const loadHomePage = () => {
+  
   getAllImages();
   setTimeout(() => {
-    storageImagesList.forEach(img => {
-      createSlide(img);
+    storageImagesList.forEach(async (img) => {
+      const imgData = await getData(img);
+      console.log(imgData);
+      createSlide(img, imgData);
       loadImgPreviews(img)
       initCarousel();
       const imageSelectionButtons = document.querySelectorAll('.image-selection_button');
       imageSelectionButtons.forEach(el => {
-        el.addEventListener('click', () => initGame(el.textContent))
+        el.addEventListener('click', (e) => {
+          initGame(e.target.dataset.id);
+        })
       })
       
     });
@@ -192,6 +200,8 @@ const allCharsFound = () => {
 };
 
 const updateDisplay = () => {
+  //homePage.style.display = 'none';
+  //gamezone.style.display = 'flex';
   characterCounter.textContent = `${charCounter} / ${charData.length}`;
 }
 
@@ -291,6 +301,6 @@ testButton.addEventListener('click', async () => {
 
 export { checkCharacter, allCharsFound };
 
-// Créer un container et la preview de chaque image présente dans le storage
+// Créer un container et la preview de chaque image présente dans le storage, avec informations (artiste, personnages à trouver)
 // Récapitulatif des personnages à trouver, qui deviennent grisés lorsqu'on les trouve
 // Ajouter leaderboard

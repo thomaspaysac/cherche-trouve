@@ -9,38 +9,39 @@
 </head>
 <body>
 
-<div id="slider">
-  <div class="slide">
-    <img src="https://source.unsplash.com/random?landscape,mountain" alt="" class="image-preview" id="image1-preview">
-    <div class="slider_image-credits">Test by Random</div>
-    <ul class="people-list">
-      People to find:
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-    </ul>
-    <button class="image-selection_button">Play</button>
+  <header>
+    <h1 class="site-title">Seekers' Club</h1>
+    <nav>
+      <ul>
+        <li>Start a new game</li>
+        <li>About</li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="content">
+    <div id="homepage">
+      <div id="slider">
+        <button class="btn btn-next">></button>
+        <button class="btn btn-prev"><</button>
+      </div>
+    </div>
+  
+  
+    <div id="gamezone">
+      <div class="timer_container">
+        Your time: <span id="timer">00:00</span>
+      </div>
+      <div class="character-counter_container">
+        Characters found : <span id="character-counter"></span>
+      </div>
+      <div id="image-container">
+        <img id="image" alt="image" src="">
+      </div>
+      <div id="image-credits"></div>
+    </div>
   </div>
-
-
-  <button class="btn btn-next">></button>
-  <button class="btn btn-prev"><</button>
-</div>
-
-
-  <div id="gamezone">
-    <div class="timer_container">
-      Your time: <span id="timer">00:00</span>
-    </div>
-    <div class="character-counter_container">
-      Characters found : <span id="character-counter"></span>
-    </div>
-    <div id="image-container">
-      <img id="image" alt="image" src="">
-    </div>
-  </div>
+  
   <button id="test-button">Test button</button>
 
   <div id="game-over-modal">
@@ -50,7 +51,6 @@
   </div>
 
   <footer>
-    <div id="image-credits"></div>
   </footer>
 
 </body>
