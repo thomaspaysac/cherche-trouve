@@ -5,8 +5,13 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+body {
+  margin: 0;
+}
+
 header {
   width: 100%;
+  height: 10vh;
   display: flex;
   justify-content: space-between;
   padding: 16px;
@@ -17,6 +22,10 @@ header {
     font-size: 1.5rem;
     margin: 0;
   }
+
+  a {
+    text-decoration: none;
+  }
 }
 
 nav {
@@ -24,6 +33,22 @@ nav {
     list-style-type: none;
     display: flex;
   }
+}
+
+#content {
+  position: relative;
+  height: 90vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+#homepage {
+  position: absolute;
+  transition: all 0.5s;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 // Homepage
@@ -36,7 +61,12 @@ nav {
 
 // Game display
 #gamezone {
-  display: none;
+  position: absolute;
+  transition: all 0.5s;
+  height: 100%;
+  width: 100%;
+  transform: translateX(100%);
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;

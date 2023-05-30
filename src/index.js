@@ -36,12 +36,14 @@ let charData = [];
 let charCounter;
 let pinImgSrc;
 let timer;
+let currentImage = null;
 const storageImagesList = [];
 
 
 // Initialize game state, load characters data and images
 const initGame = async (imgID) => {
   resetGameState();
+  currentImage = imgID;
   // Get data from backend
   const imageData = await getData(imgID)
   charData = imageData.data;
@@ -167,7 +169,7 @@ loadHomePage();
 document.getElementById('game-over-modal_close').addEventListener('click', () => gameOverModal.style.display = 'none');
 document.getElementById('game-over-modal_start-again').addEventListener('click', () => {
   gameOverModal.style.display = 'none';
-  initGame('1');
+  initGame(currentImage);
 });
 
 
@@ -200,6 +202,8 @@ const allCharsFound = () => {
 };
 
 const updateDisplay = () => {
+  homePage.style.transform = 'translateX(-100%)';
+  gamezone.style.transform = 'translateX(0%)';
   //homePage.style.display = 'none';
   //gamezone.style.display = 'flex';
   characterCounter.textContent = `${charCounter} / ${charData.length}`;
