@@ -31,7 +31,14 @@ const createSlide = (imgID, data) => {
           const charList = document.createElement('ul');
           data.data.forEach(el => {
             const listItem = document.createElement('li');
-            listItem.textContent = el.char;
+            listItem.classList.add('characters-list-item');
+            const characterImage = document.createElement('img');
+            characterImage.src = el.image;
+            listItem.appendChild(characterImage);
+            const characterName = document.createElement('span');
+            characterName.textContent = el.char;
+            listItem.appendChild(characterName);
+            //listItem.textContent = el.char;
             charList.appendChild(listItem);
           })
           charListContainer.appendChild(charList);

@@ -125,7 +125,7 @@ nav #nav_new-game {
 #slider {
   width: 100%;
   max-width: 1000px;
-  height: 500px;
+  height: 600px;
   position: relative;
   overflow: hidden;
   border-radius: 10px; }
@@ -204,7 +204,16 @@ nav #nav_new-game {
   background: linear-gradient(180deg, #ddddcc 20%, rgba(221, 221, 204, 0.33) 100%); }
   .characters-list ul {
     margin: 0;
-    padding: 6px 6px 6px 32px; }
+    padding: 6px 12px; }
+
+.characters-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px; }
+  .characters-list-item img {
+    object-fit: contain;
+    height: 40px;
+    max-width: 40px; }
 
 .leaderboard {
   width: 80%;

@@ -72,11 +72,9 @@ const endGame = () => {
   clearInterval(timer);
   gameOverModal.style.display = 'block';
   const submitButton = document.getElementById('submit-score-button');
-  console.log(submitButton);
   submitButton.addEventListener('click', () => {
     const userNameInput = document.getElementById('username-input');
     submitScore(currentImage, userNameInput.value, timerElement.textContent);
-    console.log(userNameInput.value);
   });
 }
 
@@ -168,7 +166,6 @@ const loadHomePage = () => {
 
 const submitScore = async (imgID, username, score) => {
   const leaderBoardRef = doc(db, 'imagesDB', imgID);
-  console.log(leaderBoardRef);
   await updateDoc(leaderBoardRef, {
     leaderboard: arrayUnion({username: username, score: score})
   });  
@@ -187,7 +184,7 @@ document.getElementById('game-over-modal_start-again').addEventListener('click',
 // Game flow
 // Vérifie si le cadre contient le personnage
 const checkCharacter = (x, y, coord, index) => {
-  console.log(x, y, coord);
+  console.log(x, y);
   if ((coord[0] -40) <= x && (coord[0] +40) >= x && (coord[1] -40) <= y && (coord[1] +40) >= y) {
     charData[index].found = true;
     document.getElementById(charData[index].char).style.display = 'none';
@@ -308,16 +305,6 @@ const initCarousel = () => {
 }
 
 
-
-
-
-// Test functions
-const testButton = document.getElementById('test-button');
-testButton.addEventListener('click', async () => {
-  storageImagesList.forEach(img => {
-    loadImgPreviews(img)
-  });
-})
 
 
 export { checkCharacter, allCharsFound };

@@ -161,7 +161,7 @@ nav {
   width: 100%;
   //max-width: 800px;
   max-width: 1000px;
-  height: 500px;
+  height: 600px;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
@@ -252,7 +252,19 @@ nav {
 
   ul {
     margin: 0;
-    padding: 6px 6px 6px 32px;
+    padding: 6px 12px;
+  }
+}
+
+.characters-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  img {
+    object-fit: contain;
+    height: 40px;
+    max-width: 40px;
   }
 }
 
