@@ -11,6 +11,7 @@ const createSlide = (imgID, data) => {
     slide.classList.add('slide');
       const image = document.createElement('img');
       image.classList.add('image-preview');
+      image.classList.add('frame-border');
       image.setAttribute('id', `image${imgID}-preview`);
       slide.appendChild(image);
       const slideInfo = document.createElement('div');
@@ -30,11 +31,15 @@ const createSlide = (imgID, data) => {
         slideInfo.appendChild(charList);
         const leaderboard = document.createElement('ul');
         leaderboard.classList.add('leaderboard');
+        // Sort leaderboard
+        
         data.leaderboard.forEach(el => {
+          const player = Object.keys(el);
+          const score = Object.values(el);
           const listItem = document.createElement('li');
-          listItem.textContent = el;
+          listItem.textContent = player + ' : ' + score;
           leaderboard.appendChild(listItem);
-        });
+        })
         slideInfo.appendChild(leaderboard);
         const selectBtn = document.createElement('button');
         selectBtn.classList.add('image-selection_button');

@@ -26,7 +26,6 @@ const image = document.getElementById('image');
 const timerElement = document.getElementById('timer');
 const gameOverModal = document.getElementById('game-over-modal');
 const characterCounter = document.getElementById('character-counter');
-const imageCredits = document.getElementById('image-credits');
 const homePage = document.getElementById('homepage');
 const gamezone = document.getElementById('gamezone');
 const gamezoneElements = document.querySelector('.gamezone-elements');
@@ -51,7 +50,6 @@ const initGame = async (imgID) => {
   // Get data from backend
   const imageData = await getData(imgID)
   charData = imageData.data;
-  imageCredits.textContent = imageData.credits;
   loadImage(imgID);
   loadPinImage();
   // Restart timer
@@ -67,7 +65,6 @@ const resetGameState = () => {
   charCounter = 0;
   clearInterval(timer);
   document.querySelectorAll('.pin-image').forEach(el => el.remove());
-  imageCredits.textContent = '';
 }
 
 const endGame = () => {
@@ -150,7 +147,7 @@ const loadHomePage = () => {
   setTimeout(() => {
     storageImagesList.forEach(async (img) => {
       const imgData = await getData(img);
-      console.log(imgData);
+      //console.log(imgData);
       createSlide(img, imgData);
       loadImgPreviews(img)
       initCarousel();

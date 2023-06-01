@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@700;900&family=Mystery+Quest&family=Open+Sans:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@700;900&family=Open+Sans:wght@500;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -26,11 +26,11 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  background-color: black;
-  color: white;
+  background-color: #020202;
+  color: #ddc;
 
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     margin: 0;
     display: flex;
     align-items: center;
@@ -43,10 +43,10 @@ header {
 
   a {
     font-family: 'Merienda', sans-serif;
-    font-weight: 700;
+    font-weight: 900;
     letter-spacing: 1px;
     text-decoration: none;
-    color: #ffffff;
+    color: #ddc;
   }
 }
 
@@ -99,14 +99,17 @@ nav {
 
 .gamezone-elements {
   display: none;
+  color: #ffffff;
 }
 
 #image-container {
   display: none;
   position: relative;
-  height: fit-content;
-  width: fit-content;
-  border: 1px solid black;
+  box-sizing: content-box;
+  //height: fit-content;
+  //width: fit-content;
+  border: 50px solid #ddc;
+  background-color: #ddc;
 
   #image {
     max-height: 1000px;
@@ -179,40 +182,41 @@ nav {
   width: 50%;
   height: 100%;
   object-fit: cover;
-  // Frame border
-    background-color:#ddc;
-    border:solid 16px #eee;
-    border-bottom-color:rgb(152, 56, 32);
-    border-left-color:rgb(132, 36, 12);
+}
+
+.frame-border {
+  background-color:#ddc;
+  border:solid 16px #eee;
+  border-bottom-color:rgb(152, 56, 32);
+  border-left-color:rgb(132, 36, 12);
+  border-radius:2px;
+  border-right-color:rgb(132, 36, 12);
+  border-top-color:rgb(112, 16, 0);
+  box-shadow:0 0 5px 0 rgba(0,0,0,.25) inset, 0 5px 10px 5px rgba(0,0,0,.25);
+  display:inline-block;
+  padding:8px;
+  position:relative;
+  text-align:center;
+  &:before {
     border-radius:2px;
-    border-right-color:rgb(132, 36, 12);
-    border-top-color:rgb(112, 16, 0);
-    box-shadow:0 0 5px 0 rgba(0,0,0,.25) inset, 0 5px 10px 5px rgba(0,0,0,.25);
-    display:inline-block;
-    padding:8px;
-    position:relative;
-    text-align:center;
-    &:before {
-      border-radius:2px;
-      bottom:-2vmin;
-      box-shadow:0 2px 5px 0 rgba(0,0,0,.25) inset;
-      content:"";
-      left:-2vmin;
-      position:absolute;
-      right:-2vmin;
-      top:-2vmin;
-    }
-    &:after {
-      border-radius:2px;
-      bottom:-2.5vmin;
-      box-shadow: 0 2px 5px 0 rgba(0,0,0,.25);
-      content:"";
-      left:-2.5vmin;
-      position:absolute;
-      right:-2.5vmin;
-      top:-2.5vmin;
-    }
-  
+    bottom:-2vmin;
+    box-shadow:0 2px 5px 0 rgba(0,0,0,.25) inset;
+    content:"";
+    left:-2vmin;
+    position:absolute;
+    right:-2vmin;
+    top:-2vmin;
+  }
+  &:after {
+    border-radius:2px;
+    bottom:-2.5vmin;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.25);
+    content:"";
+    left:-2.5vmin;
+    position:absolute;
+    right:-2.5vmin;
+    top:-2.5vmin;
+  } 
 }
 
 .image-preview {
