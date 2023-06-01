@@ -29,6 +29,10 @@ const characterCounter = document.getElementById('character-counter');
 const imageCredits = document.getElementById('image-credits');
 const homePage = document.getElementById('homepage');
 const gamezone = document.getElementById('gamezone');
+const gamezoneElements = document.querySelector('.gamezone-elements');
+document.getElementById('nav_new-game').addEventListener('click', () => {
+  returnToHome();
+})
 
 
 // Global variables
@@ -142,7 +146,6 @@ const loadPinImage = () => {
 
 // Load homepage
 const loadHomePage = () => {
-  
   getAllImages();
   setTimeout(() => {
     storageImagesList.forEach(async (img) => {
@@ -163,7 +166,6 @@ const loadHomePage = () => {
 };
 
 loadHomePage();
-
 
 // Modals
 document.getElementById('game-over-modal_close').addEventListener('click', () => gameOverModal.style.display = 'none');
@@ -204,9 +206,14 @@ const allCharsFound = () => {
 const updateDisplay = () => {
   homePage.style.transform = 'translateX(-100%)';
   gamezone.style.transform = 'translateX(0%)';
-  //homePage.style.display = 'none';
-  //gamezone.style.display = 'flex';
+  gamezoneElements.style.display = 'block';
   characterCounter.textContent = `${charCounter} / ${charData.length}`;
+}
+
+const returnToHome = () => {
+  gamezone.style.transform = 'translateX(100%)';
+  homePage.style.transform = 'translateX(0%)';
+  gamezoneElements.style.display = 'none';
 }
 
 image.addEventListener('click', (e) => {

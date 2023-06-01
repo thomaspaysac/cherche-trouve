@@ -9,11 +9,13 @@
 </head>
 <body>
 
+  <div id="background"></div>
+
   <header>
-    <h1 class="site-title"><a href="https://seekersclub.web.app/">Seekers' Club</a></h1>
+    <h1 class="site-title"><img src="./images/vecteezy_vector-magnifying-glass-icon-with-reflection-isolated-on_6731486.png" alt="logo"> <a href="https://seekersclub.web.app/">Seekers' Club</a></h1>
     <nav>
       <ul>
-        <li>Start a new game</li>
+        <li id="nav_new-game">Start a new game</li>
         <li>About</li>
       </ul>
     </nav>
@@ -29,11 +31,13 @@
   
   
     <div id="gamezone">
-      <div class="timer_container">
-        Your time: <span id="timer">00:00</span>
-      </div>
-      <div class="character-counter_container">
-        Characters found : <span id="character-counter"></span>
+      <div class="gamezone-elements">
+        <div class="timer_container">
+          Your time: <span id="timer">00:00</span>
+        </div>
+        <div class="character-counter_container">
+          Characters found : <span id="character-counter"></span>
+        </div>
       </div>
       <div id="image-container">
         <img id="image" alt="image" src="">

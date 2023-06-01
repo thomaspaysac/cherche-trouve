@@ -1,33 +1,56 @@
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Open+Sans:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merienda:wght@700;900&family=Mystery+Quest&family=Open+Sans:wght@500;700&display=swap");
 * {
   box-sizing: border-box;
-  font-family: 'Open Sans', sans-serif; }
+  font-family: 'DM Sans', sans-serif; }
 
 body {
-  margin: 0; }
+  margin: 0;
+  overflow-x: hidden; }
+
+#background {
+  background: url("../dist/images/1618.jpg");
+  background-size: 30%;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: -1; }
 
 header {
   width: 100%;
-  height: 10vh;
+  height: 70px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 16px;
   background-color: black;
   color: white; }
   header h1 {
     font-size: 1.5rem;
-    margin: 0; }
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px; }
+    header h1 img {
+      max-height: 1.5rem; }
   header a {
-    text-decoration: none; }
+    font-family: 'Merienda', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #ffffff; }
 
 nav ul {
   list-style-type: none;
-  display: flex; }
+  display: flex;
+  gap: 50px; }
+nav #nav_new-game {
+  cursor: pointer; }
 
 #content {
   position: relative;
   height: 90vh;
   width: 100vw;
+  padding-top: 40px;
   overflow-x: hidden; }
 
 #homepage {
@@ -49,8 +72,11 @@ nav ul {
   transform: translateX(100%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center; }
+  align-items: center;
+  gap: 16px; }
+
+.gamezone-elements {
+  display: none; }
 
 #image-container {
   display: none;
@@ -102,7 +128,7 @@ nav ul {
   height: 500px;
   position: relative;
   overflow: hidden;
-  border: 5px solid black; }
+  border-radius: 10px; }
 
 .slide {
   width: 100%;
@@ -110,12 +136,16 @@ nav ul {
   height: 100%;
   position: absolute;
   transition: all 0.5s;
-  display: flex; }
+  display: flex;
+  padding: 16px 80px;
+  background-color: #ffffffae; }
 
 .slide img {
   width: 50%;
   height: 100%;
-  object-fit: cover; }
+  object-fit: cover;
+  border: 5px double #ffffff;
+  border-radius: 2px; }
 
 .image-preview {
   height: 500px;
