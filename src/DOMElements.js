@@ -94,7 +94,12 @@ const displayDropdown = (tx, ty, x, y, data) => {
     if (!data[i].found) {
       const listItem = document.createElement('li');
       listItem.setAttribute('id', data[i].char);
-      listItem.textContent = data[i].char;
+      const characterImage = document.createElement('img');
+      characterImage.src = data[i].image;
+      listItem.appendChild(characterImage);
+      const characterName = document.createElement('span');
+      characterName.textContent = data[i].char;
+      listItem.appendChild(characterName);
       listItem.addEventListener('click', () => checkCharacter(x, y, data[i].coord, i))
       list.appendChild(listItem);
     }

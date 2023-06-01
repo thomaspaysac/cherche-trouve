@@ -101,13 +101,21 @@ nav #nav_new-game {
 #dropdown-choices {
   position: absolute;
   height: auto;
-  width: 100px;
-  border: 1px solid black;
+  padding: 2px;
+  border: 4px solid black;
   background-color: white; }
   #dropdown-choices ul {
     margin: 0;
     padding: 0;
     list-style-type: none; }
+    #dropdown-choices ul li {
+      display: flex;
+      align-items: center;
+      gap: 4px; }
+  #dropdown-choices img {
+    object-fit: contain;
+    height: 30px;
+    max-width: 30px; }
 
 .pin-image {
   position: absolute;
