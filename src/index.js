@@ -14,6 +14,7 @@ import {
   updateDoc,
   doc,
   getDoc,
+  arrayUnion,
   serverTimestamp,
 } from 'firebase/firestore';
 
@@ -70,6 +71,13 @@ const resetGameState = () => {
 const endGame = () => {
   clearInterval(timer);
   gameOverModal.style.display = 'block';
+  const submitButton = document.getElementById('submit-score-button');
+  console.log(submitButton);
+  submitButton.addEventListener('click', () => {
+    const userNameInput = document.getElementById('username-input');
+    submitScore(currentImage, userNameInput.value, timerElement.textContent);
+    console.log(userNameInput.value);
+  });
 }
 
 // Firebase functions
@@ -103,8 +111,6 @@ const getAllImages = () => {
     }  
   });
 }
-
-
 
 async function getData (imgID) {
   const imageData = doc(db, 'imagesDB', imgID);
@@ -162,6 +168,14 @@ const loadHomePage = () => {
   }, 1000)
 };
 
+const submitScore = async (imgID, username, score) => {
+  const leaderBoardRef = doc(db, 'imagesDB', imgID);
+  console.log(leaderBoardRef);
+  await updateDoc(leaderBoardRef, {
+    leaderboard: arrayUnion({username: username, score: score})
+  });  
+}
+
 loadHomePage();
 
 // Modals
@@ -199,6 +213,7 @@ const allCharsFound = () => {
   });
   return result;
 };
+
 
 const updateDisplay = () => {
   homePage.style.transform = 'translateX(-100%)';

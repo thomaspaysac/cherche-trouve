@@ -32,12 +32,10 @@ const createSlide = (imgID, data) => {
         const leaderboard = document.createElement('ul');
         leaderboard.classList.add('leaderboard');
         // Sort leaderboard
-        
-        data.leaderboard.forEach(el => {
-          const player = Object.keys(el);
-          const score = Object.values(el);
+        const sortedLeaderBoard = data.leaderboard.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0));
+        sortedLeaderBoard.forEach(el => {
           const listItem = document.createElement('li');
-          listItem.textContent = player + ' : ' + score;
+          listItem.textContent = el.username + ' : ' + el.score;
           leaderboard.appendChild(listItem);
         })
         slideInfo.appendChild(leaderboard);
