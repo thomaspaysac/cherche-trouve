@@ -1,6 +1,7 @@
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 import { checkCharacter } from ".";
+import { doc } from "firebase/firestore";
 
 const image_container = document.getElementById('image-container');
 const image = document.getElementById('image');
@@ -21,27 +22,36 @@ const createSlide = (imgID, data) => {
         slideCredits.classList.add('slider_image-credits');
         slideCredits.textContent = data.credits.title + ', by ' + data.credits.artist;
         slideInfo.appendChild(slideCredits);
-        const charList = document.createElement('ul');
-        charList.classList.add('characters-list');
-        data.data.forEach(el => {
-          const listItem = document.createElement('li');
-          listItem.textContent = el.char;
-          charList.appendChild(listItem);
-        })
-        slideInfo.appendChild(charList);
+        const charListContainer = document.createElement('div');
+          charListContainer.classList.add('characters-list');
+          const charListTitle = document.createElement('div');
+          charListTitle.classList.add('category-title');
+          charListTitle.textContent = 'Characters to find:'
+          charListContainer.appendChild(charListTitle);
+          const charList = document.createElement('ul');
+          data.data.forEach(el => {
+            const listItem = document.createElement('li');
+            listItem.textContent = el.char;
+            charList.appendChild(listItem);
+          })
+          charListContainer.appendChild(charList);
+          slideInfo.appendChild(charListContainer);
+        const leaderboardContainer = document.createElement('div');
+        leaderboardContainer.classList.add('leaderboard');
+        const leaderboardTitle = document.createElement('div');
+        leaderboardTitle.classList.add('category-title');
+        leaderboardTitle.textContent = 'Best times:'
+        leaderboardContainer.appendChild(leaderboardTitle);
         const leaderboard = document.createElement('ul');
-          leaderboard.classList.add('leaderboard');
-          const leaderboardTitle = document.createElement('h2');
-          leaderboardTitle.textContent = 'Best times:'
-          leaderboard.appendChild(leaderboardTitle);
-          // Sort leaderboard and get first 5 to display
+          leaderboardContainer.appendChild(leaderboard);
+          // Sort leaderboard and get first 3 to display
           const sortedLeaderBoard = data.leaderboard.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0));
-          sortedLeaderBoard.slice(0, 5).forEach(el => {
+          sortedLeaderBoard.slice(0, 3).forEach(el => {
             const listItem = document.createElement('li');
             listItem.textContent = el.username + ' : ' + el.score;
             leaderboard.appendChild(listItem);
           })
-          slideInfo.appendChild(leaderboard);
+          slideInfo.appendChild(leaderboardContainer);
         const selectBtn = document.createElement('button');
         selectBtn.classList.add('image-selection_button');
         selectBtn.setAttribute('data-id', imgID);

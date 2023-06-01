@@ -237,20 +237,71 @@ nav {
   font-size: 1.4rem;
 }
 
-.leaderboard {
-  padding: 8px;
-  margin: 0;
+.category-title {
+  padding: 6px;
+  background-color: #333333;
+  color: #eeeeee;
+  border-radius: 5px 5px 0 0;
+}
+
+.characters-list {
   width: 80%;
-  list-style-type: none;
+  border-radius: 5px;
+  background: rgb(221,221,204);
+  background: linear-gradient(180deg, rgba(221,221,204,1) 20%, rgba(221,221,204,0.33) 100%);
+
+  ul {
+    margin: 0;
+    padding: 6px 6px 6px 32px;
+  }
+}
+
+.leaderboard {
+  width: 80%;
   border-radius: 5px;
   background: rgba(221,221,204,0.7);
-  background: linear-gradient(180deg, rgba(255,215,0,0.2) 0%, rgba(221,221,204,0.7) 100%);
+  background: linear-gradient(180deg, rgba(255,215,0,0.2) 0%, rgba(221,221,204,0.33) 100%);
   //background: rgb(211,200,216);
   //background: linear-gradient(0deg, rgba(211,200,216,0.7) 20%, rgba(238,233,239,0.7) 100%);
 
-  h2 {
-    font-size: 1rem;
-    margin: 8px 0;
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 6px 6px 6px 12px;
+
+    &:first-child {
+      color: blue;
+    }
+  }
+
+  li:first-of-type::before {
+    content: '';
+    background-image: url('../dist/images/gold-medal.png');
+    background-size: contain;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin-right: 4px;
+  }
+
+  li:nth-of-type(2)::before {
+    content: '';
+    background-image: url('../dist/images/silver-medal.png');
+    background-size: contain;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin-right: 4px;
+  }
+
+  li:nth-of-type(3)::before {
+    content: '';
+    background-image: url('../dist/images/bronze-medal.png');
+    background-size: contain;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin-right: 6px;
   }
 }
 

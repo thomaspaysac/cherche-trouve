@@ -191,17 +191,56 @@ nav #nav_new-game {
   font-family: 'Merienda', sans-serif;
   font-size: 1.4rem; }
 
-.leaderboard {
-  padding: 8px;
-  margin: 0;
+.category-title {
+  padding: 6px;
+  background-color: #333333;
+  color: #eeeeee;
+  border-radius: 5px 5px 0 0; }
+
+.characters-list {
   width: 80%;
-  list-style-type: none;
+  border-radius: 5px;
+  background: #ddddcc;
+  background: linear-gradient(180deg, #ddddcc 20%, rgba(221, 221, 204, 0.33) 100%); }
+  .characters-list ul {
+    margin: 0;
+    padding: 6px 6px 6px 32px; }
+
+.leaderboard {
+  width: 80%;
   border-radius: 5px;
   background: rgba(221, 221, 204, 0.7);
-  background: linear-gradient(180deg, rgba(255, 215, 0, 0.2) 0%, rgba(221, 221, 204, 0.7) 100%); }
-  .leaderboard h2 {
-    font-size: 1rem;
-    margin: 8px 0; }
+  background: linear-gradient(180deg, rgba(255, 215, 0, 0.2) 0%, rgba(221, 221, 204, 0.33) 100%); }
+  .leaderboard ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 6px 6px 6px 12px; }
+    .leaderboard ul:first-child {
+      color: blue; }
+  .leaderboard li:first-of-type::before {
+    content: '';
+    background-image: url("../dist/images/gold-medal.png");
+    background-size: contain;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin-right: 4px; }
+  .leaderboard li:nth-of-type(2)::before {
+    content: '';
+    background-image: url("../dist/images/silver-medal.png");
+    background-size: contain;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin-right: 4px; }
+  .leaderboard li:nth-of-type(3)::before {
+    content: '';
+    background-image: url("../dist/images/bronze-medal.png");
+    background-size: contain;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin-right: 6px; }
 
 .image-selection_button {
   font-size: 1.5rem;
