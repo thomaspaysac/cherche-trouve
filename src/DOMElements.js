@@ -19,7 +19,7 @@ const createSlide = (imgID, data) => {
       slide.appendChild(slideInfo);
         const slideCredits = document.createElement('div');
         slideCredits.classList.add('slider_image-credits');
-        slideCredits.textContent = data.credits;
+        slideCredits.textContent = data.credits.title + ', by ' + data.credits.artist;
         slideInfo.appendChild(slideCredits);
         const charList = document.createElement('ul');
         charList.classList.add('characters-list');
@@ -30,19 +30,22 @@ const createSlide = (imgID, data) => {
         })
         slideInfo.appendChild(charList);
         const leaderboard = document.createElement('ul');
-        leaderboard.classList.add('leaderboard');
-        // Sort leaderboard
-        const sortedLeaderBoard = data.leaderboard.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0));
-        sortedLeaderBoard.forEach(el => {
-          const listItem = document.createElement('li');
-          listItem.textContent = el.username + ' : ' + el.score;
-          leaderboard.appendChild(listItem);
-        })
-        slideInfo.appendChild(leaderboard);
+          leaderboard.classList.add('leaderboard');
+          const leaderboardTitle = document.createElement('h2');
+          leaderboardTitle.textContent = 'Best times:'
+          leaderboard.appendChild(leaderboardTitle);
+          // Sort leaderboard and get first 5 to display
+          const sortedLeaderBoard = data.leaderboard.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0));
+          sortedLeaderBoard.slice(0, 5).forEach(el => {
+            const listItem = document.createElement('li');
+            listItem.textContent = el.username + ' : ' + el.score;
+            leaderboard.appendChild(listItem);
+          })
+          slideInfo.appendChild(leaderboard);
         const selectBtn = document.createElement('button');
         selectBtn.classList.add('image-selection_button');
         selectBtn.setAttribute('data-id', imgID);
-        selectBtn.textContent = 'Play';
+        selectBtn.textContent = '▶ Play';
         slideInfo.appendChild(selectBtn);
   slider.appendChild(slide);
 }

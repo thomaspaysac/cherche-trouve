@@ -153,7 +153,6 @@ const loadHomePage = () => {
   setTimeout(() => {
     storageImagesList.forEach(async (img) => {
       const imgData = await getData(img);
-      //console.log(imgData);
       createSlide(img, imgData);
       loadImgPreviews(img)
       initCarousel();
@@ -163,7 +162,6 @@ const loadHomePage = () => {
           initGame(e.target.dataset.id);
         })
       })
-      
     });
   }, 1000)
 };

@@ -159,7 +159,8 @@ nav {
 // Image carousel
 #slider {
   width: 100%;
-  max-width: 800px;
+  //max-width: 800px;
+  max-width: 1000px;
   height: 500px;
   position: relative;
   overflow: hidden;
@@ -168,12 +169,12 @@ nav {
 
 .slide {
   width: 100%;
-  max-width: 800px;
+  //max-width: 1000px;
   height: 100%;
   position: absolute;
   transition: all 0.5s;
   display: flex;
-  padding: 16px 80px;
+  padding: 16px;
   background-color: #ffffffae;
 }
 
@@ -231,6 +232,48 @@ nav {
   align-items: center;
 }
 
+.slider_image-credits {
+  font-family: 'Merienda', sans-serif;
+  font-size: 1.4rem;
+}
+
+.leaderboard {
+  padding: 8px;
+  margin: 0;
+  width: 80%;
+  list-style-type: none;
+  border-radius: 5px;
+  background: rgba(221,221,204,0.7);
+  background: linear-gradient(180deg, rgba(255,215,0,0.2) 0%, rgba(221,221,204,0.7) 100%);
+  //background: rgb(211,200,216);
+  //background: linear-gradient(0deg, rgba(211,200,216,0.7) 20%, rgba(238,233,239,0.7) 100%);
+
+  h2 {
+    font-size: 1rem;
+    margin: 8px 0;
+  }
+}
+
+.image-selection_button {
+  font-size: 1.5rem;
+  background-color: rgb(152, 56, 32);
+  color: #ffffff;
+  border: none;
+  border-radius: 7px;
+  width: 200px;
+  height: 65px;
+  box-shadow: 3px 3px 3px #00000067;
+
+  &:hover {
+    background-color: rgb(132, 36, 12);
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: rgb(112, 16, 0);
+  }
+}
+
 .btn {
   position: absolute;
   width: 40px;
@@ -242,18 +285,24 @@ nav {
   cursor: pointer;
   background-color: #fff;
   font-size: 18px;
-}
 
-.btn:active {
-  transform: scale(1.1);
+  &:hover {
+    background-color: #d3c8d8;
+  }
+
+  &:active {
+    transform: scale(1.1);
+    background-color: #856690;
+  }
 }
 
 .btn-prev {
-  top: 45%;
-  left: 2%;
+  bottom: 16px;
+  left: 16px;
 }
 
 .btn-next {
-  top: 45%;
-  right: 2%;
+  bottom: 16px;
+  right: 16px;
 }
+

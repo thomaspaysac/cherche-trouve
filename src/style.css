@@ -124,7 +124,7 @@ nav #nav_new-game {
 
 #slider {
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   height: 500px;
   position: relative;
   overflow: hidden;
@@ -132,12 +132,11 @@ nav #nav_new-game {
 
 .slide {
   width: 100%;
-  max-width: 800px;
   height: 100%;
   position: absolute;
   transition: all 0.5s;
   display: flex;
-  padding: 16px 80px;
+  padding: 16px;
   background-color: #ffffffae; }
 
 .slide img {
@@ -188,6 +187,37 @@ nav #nav_new-game {
   justify-content: space-around;
   align-items: center; }
 
+.slider_image-credits {
+  font-family: 'Merienda', sans-serif;
+  font-size: 1.4rem; }
+
+.leaderboard {
+  padding: 8px;
+  margin: 0;
+  width: 80%;
+  list-style-type: none;
+  border-radius: 5px;
+  background: rgba(221, 221, 204, 0.7);
+  background: linear-gradient(180deg, rgba(255, 215, 0, 0.2) 0%, rgba(221, 221, 204, 0.7) 100%); }
+  .leaderboard h2 {
+    font-size: 1rem;
+    margin: 8px 0; }
+
+.image-selection_button {
+  font-size: 1.5rem;
+  background-color: #983820;
+  color: #ffffff;
+  border: none;
+  border-radius: 7px;
+  width: 200px;
+  height: 65px;
+  box-shadow: 3px 3px 3px #00000067; }
+  .image-selection_button:hover {
+    background-color: #84240c;
+    cursor: pointer; }
+  .image-selection_button:active {
+    background-color: #701000; }
+
 .btn {
   position: absolute;
   width: 40px;
@@ -199,16 +229,18 @@ nav #nav_new-game {
   cursor: pointer;
   background-color: #fff;
   font-size: 18px; }
-
-.btn:active {
-  transform: scale(1.1); }
+  .btn:hover {
+    background-color: #d3c8d8; }
+  .btn:active {
+    transform: scale(1.1);
+    background-color: #856690; }
 
 .btn-prev {
-  top: 45%;
-  left: 2%; }
+  bottom: 16px;
+  left: 16px; }
 
 .btn-next {
-  top: 45%;
-  right: 2%; }
+  bottom: 16px;
+  right: 16px; }
 
 /*# sourceMappingURL=style.css.map */
