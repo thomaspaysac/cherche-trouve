@@ -26,7 +26,6 @@ const image_container = document.getElementById('image-container');
 const image = document.getElementById('image');
 const timerElement = document.getElementById('timer');
 const gameOverModal = document.getElementById('game-over-modal');
-const characterCounter = document.getElementById('character-counter');
 const homePage = document.getElementById('homepage');
 const gamezone = document.getElementById('gamezone');
 const gamezoneElements = document.querySelector('.gamezone-elements');
@@ -37,7 +36,6 @@ document.getElementById('nav_new-game').addEventListener('click', () => {
 
 // Global variables
 let charData = [];
-let charCounter;
 let pinImgSrc;
 let timer;
 let currentImage = null;
@@ -63,7 +61,6 @@ const initGame = async (imgID) => {
 
 const resetGameState = () => {
   charData = [];
-  charCounter = 0;
   clearInterval(timer);
   document.querySelectorAll('.pin-image').forEach(el => el.remove());
 }
@@ -189,7 +186,6 @@ const checkCharacter = (x, y, coord, index) => {
     charData[index].found = true;
     document.getElementById(charData[index].char).style.display = 'none';
     addPinImage(pinImgSrc, coord[0], coord[1]);
-    charCounter++;
     updateDisplay();
     // Si tous les personnages ont été trouvés, arrête le timer
     if (allCharsFound()) {
@@ -214,7 +210,6 @@ const updateDisplay = () => {
   homePage.style.transform = 'translateX(-100%)';
   gamezone.style.transform = 'translateX(0%)';
   gamezoneElements.style.display = 'block';
-  characterCounter.textContent = `${charCounter} / ${charData.length}`;
 }
 
 const returnToHome = () => {
