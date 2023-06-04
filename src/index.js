@@ -29,9 +29,8 @@ const gameOverModal = document.getElementById('game-over-modal');
 const homePage = document.getElementById('homepage');
 const gamezone = document.getElementById('gamezone');
 const gamezoneElements = document.querySelector('.gamezone-elements');
-document.getElementById('nav_new-game').addEventListener('click', () => {
-  returnToHome();
-})
+const backdrop = document.getElementById('backdrop');
+document.getElementById('nav_new-game').addEventListener('click', () => returnToHome());
 
 
 // Global variables
@@ -60,18 +59,37 @@ const initGame = async (imgID) => {
 }
 
 const resetGameState = () => {
+  if (document.getElementById('target-box')) {
+    const targetBox = document.getElementById('target-box');
+    const dropdown = document.getElementById('dropdown-choices');
+    image_container.removeChild(targetBox);
+    image_container.removeChild(dropdown);
+  }
   charData = [];
   clearInterval(timer);
+  timerElement.textContent = '00:00';
   document.querySelectorAll('.pin-image').forEach(el => el.remove());
 }
 
 const endGame = () => {
+  const targetBox = document.getElementById('target-box');
+  const dropdown = document.getElementById('dropdown-choices');
+  image_container.removeChild(targetBox);
+  image_container.removeChild(dropdown);
   clearInterval(timer);
-  gameOverModal.style.display = 'block';
+  backdrop.style.display = 'block';
+  gameOverModal.style.display = 'flex';
+  document.querySelector('.empty-username-message').style.display = 'none';
+  const userNameInput = document.getElementById('username-input');
+  userNameInput.value = '';
   const submitButton = document.getElementById('submit-score-button');
   submitButton.addEventListener('click', () => {
-    const userNameInput = document.getElementById('username-input');
-    submitScore(currentImage, userNameInput.value, timerElement.textContent);
+    if (userNameInput.value === '') {
+      document.querySelector('.empty-username-message').style.display = 'block';
+    } else {
+      submitScore(currentImage, userNameInput.value, timerElement.textContent);
+      gameOverModal.style.display = 'none';
+    }
   });
 }
 
@@ -171,11 +189,11 @@ const submitScore = async (imgID, username, score) => {
 loadHomePage();
 
 // Modals
-document.getElementById('game-over-modal_close').addEventListener('click', () => gameOverModal.style.display = 'none');
-document.getElementById('game-over-modal_start-again').addEventListener('click', () => {
-  gameOverModal.style.display = 'none';
-  initGame(currentImage);
+document.getElementById('game-over-modal_close').addEventListener('click', () => {
+  gameOverModal.style.display = 'none'
+  backdrop.style.display = 'none';
 });
+document.getElementById('game-over-modal_new-game').addEventListener('click', () => returnToHome());
 
 
 // Game flow
@@ -213,6 +231,8 @@ const updateDisplay = () => {
 }
 
 const returnToHome = () => {
+  clearInterval(timer);
+  gameOverModal.style.display = 'none';
   gamezone.style.transform = 'translateX(100%)';
   homePage.style.transform = 'translateX(0%)';
   gamezoneElements.style.display = 'none';
@@ -232,14 +252,14 @@ image.addEventListener('click', (e) => {
   const ih = image.naturalHeight;
   const px = x/cw*iw;
   const py = y/ch*ih;*/
-  if (document.getElementById('target-box')) {
+  if (document.getElementById('target-box') && !allCharsFound()) {
     const targetBox = document.getElementById('target-box');
     const dropdown = document.getElementById('dropdown-choices');
     image_container.removeChild(targetBox);
     image_container.removeChild(dropdown);
     displayTarget(tx, ty);
     displayDropdown(tx, ty, x, y, charData);
-  } else {
+  } else if (!allCharsFound()) {
     displayTarget(tx, ty);
     displayDropdown(tx, ty, x, y, charData);
   }

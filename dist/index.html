@@ -10,15 +10,12 @@
 <body>
 
   <div id="background"></div>
+  <div id="backdrop"></div>
 
   <header>
     <h1 class="site-title"><img src="./images/vecteezy_vector-magnifying-glass-icon-with-reflection-isolated-on_6731486.png" alt="logo"> <a href="https://seekersclub.web.app/">Seekers' Club</a></h1>
-    <nav>
-      <ul>
-        <li id="nav_new-game">Start a new game</li>
-        <li>About</li>
-      </ul>
-    </nav>
+    <div id="nav_new-game">Start a new game</div>
+
   </header>
 
   <div id="content">
@@ -43,14 +40,19 @@
   </div>
   
   <div id="game-over-modal">
-    <div>You won!</div>
-    <div>
-      Enter your name:
-      <input id="username-input" type="text" placeholder="Username">
-      <button id="submit-score-button">Submit your score</button>
+    <div class="game-over_message"><img class="icon" src="./images/excellence.png" alt="victory image">You won!<img class="icon" src="./images/excellence.png" alt="victory image"></div>
+    <div class="game-over_input">
+        <div class="input-group">
+          <label for="username-input">Enter your name:</label>
+          <input id="username-input" name="username-input" type="text" placeholder="Username">
+          <div class="empty-username-message">Enter your name to submit your score.</div>
+        </div>
+        <button id="submit-score-button">Submit your score</button>
     </div>
-    <button id="game-over-modal_start-again">Start again</button>
-    <button id="game-over-modal_close">Close</button>
+    <div class="game-over_actions">
+      <button id="game-over-modal_new-game">Start a new game</button>
+      <button id="game-over-modal_close">Close</button>
+    </div>
   </div>
 
   <footer>
