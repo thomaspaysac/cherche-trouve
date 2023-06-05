@@ -88,6 +88,7 @@ const endGame = () => {
     } else {
       submitScore(currentImage, userNameInput.value, timerElement.textContent);
       gameOverModal.style.display = 'none';
+      backdrop.style.display = 'none';
     }
   });
 }
@@ -301,9 +302,4 @@ const initCarousel = () => {
 }
 
 
-
-
 export { checkCharacter, allCharsFound };
-
-// Enlever backdrop après score submit
-// Finir styling du game over modal
