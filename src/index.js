@@ -38,7 +38,6 @@ let charData = [];
 let pinImgSrc;
 let timer;
 let currentImage = null;
-const storageImagesList = [];
 
 
 // Initialize game state, load characters data and images
@@ -96,36 +95,19 @@ const endGame = () => {
 // Firebase functions
 const storage = getStorage();
 
-const getAllImages = () => {
+const getAllImages = async () => {
+  const ID_array = [];
   const listRef = ref(storage, 'images');
-  listAll(listRef)
-  .then((res) => {
-    res.items.forEach((itemRef) => {
-      getMetadata(itemRef)
-      .then((medadata) => {
-        const fileName = medadata.name.substring(0, medadata.name.indexOf('.jpg'))
-        storageImagesList.push(fileName);
-        return storageImagesList;
-      })
-    });
-    
+  const imagesList = await listAll(listRef);
+  for (const itemRef of imagesList.items) {
+    const imageMetaData = await getMetadata(itemRef);
+    const fileName = imageMetaData.name.substring(0, imageMetaData.name.indexOf('.jpg'));
+    ID_array.push(fileName);
   }
-  )
-  .catch((error) => {
-    switch (error.code) {
-      case 'storage/object-not-found':
-        break;
-      case 'storage/unauthorized':
-        break;
-      case 'storage/canceled':
-        break;
-      case 'storage/unknown':
-        break;
-    }  
-  });
+  return ID_array;
 }
 
-async function getData (imgID) {
+const getData = async (imgID) => {
   const imageData = doc(db, 'imagesDB', imgID);
   const result = await getDoc(imageData);
   return result.data();
@@ -160,23 +142,22 @@ const loadPinImage = () => {
   })  
 }
 
+
 // Load homepage
-const loadHomePage = () => {
-  getAllImages();
-  setTimeout(() => {
-    storageImagesList.forEach(async (img) => {
-      const imgData = await getData(img);
-      createSlide(img, imgData);
-      loadImgPreviews(img)
-      initCarousel();
-      const imageSelectionButtons = document.querySelectorAll('.image-selection_button');
-      imageSelectionButtons.forEach(el => {
-        el.addEventListener('click', (e) => {
-          initGame(e.target.dataset.id);
-        })
+const loadHomePage = async () => {
+  const data = await getAllImages();
+  for (const img of data) {
+    const imgData = await getData(img);
+    createSlide(img, imgData);
+    loadImgPreviews(img)
+    initCarousel();
+    const imageSelectionButtons = document.querySelectorAll('.image-selection_button');
+    imageSelectionButtons.forEach(el => {
+      el.addEventListener('click', (e) => {
+        initGame(e.target.dataset.id);
       })
-    });
-  }, 1000)
+    })
+  };
 };
 
 const submitScore = async (imgID, username, score) => {
@@ -199,7 +180,7 @@ document.getElementById('game-over-modal_new-game').addEventListener('click', ()
 // Game flow
 // Vérifie si le cadre contient le personnage
 const checkCharacter = (x, y, coord, index) => {
-  console.log(x, y);
+  //console.log(x, y);
   if ((coord[0] -40) <= x && (coord[0] +40) >= x && (coord[1] -40) <= y && (coord[1] +40) >= y) {
     charData[index].found = true;
     document.getElementById(charData[index].char).style.display = 'none';
@@ -294,7 +275,7 @@ const initCarousel = () => {
   
   const nextSlide = document.querySelector(".btn-next");
   
-  nextSlide.addEventListener("click", function () {
+  nextSlide.addEventListener("click", () => {
     if (curSlide === maxSlide) {
       curSlide = 0;
     } else {
@@ -307,7 +288,7 @@ const initCarousel = () => {
   
   const prevSlide = document.querySelector(".btn-prev");
   
-  prevSlide.addEventListener("click", function () {
+  prevSlide.addEventListener("click", () => {
     if (curSlide === 0) {
       curSlide = maxSlide;
     } else {
@@ -324,6 +305,5 @@ const initCarousel = () => {
 
 export { checkCharacter, allCharsFound };
 
-// Créer un container et la preview de chaque image présente dans le storage, avec informations (artiste, personnages à trouver)
-// Récapitulatif des personnages à trouver, qui deviennent grisés lorsqu'on les trouve
-// Ajouter leaderboard
+// Enlever backdrop après score submit
+// Finir styling du game over modal
