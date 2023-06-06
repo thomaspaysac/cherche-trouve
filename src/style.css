@@ -3,9 +3,14 @@
   box-sizing: border-box;
   font-family: 'DM Sans', sans-serif; }
 
+html {
+  height: 100%; }
+
 body {
   margin: 0;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100%; }
 
 #background {
   background: url("../dist/images/1618.jpg");
@@ -57,12 +62,22 @@ header {
     box-shadow: 0 0 16px #ffffffdb;
     transform: translateY(5%); }
 
+.header_actions {
+  display: flex;
+  align-items: center;
+  gap: 16px; }
+  .header_actions img {
+    height: 20px;
+    width: 20px;
+    transition: transform 0.5s; }
+    .header_actions img:hover {
+      transform: rotateY(180deg); }
+
 #content {
   position: relative;
-  height: 90vh;
-  width: 100vw;
-  padding-top: 40px;
-  overflow-x: hidden; }
+  min-height: 100%;
+  width: 100%;
+  padding-top: 40px; }
 
 #homepage {
   position: absolute;
@@ -78,7 +93,7 @@ header {
 #gamezone {
   position: absolute;
   transition: all 0.5s;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   transform: translateX(100%);
   display: flex;
@@ -148,6 +163,32 @@ header {
   position: absolute;
   max-height: 70px;
   max-width: 70px; }
+
+.notification_positive {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: green;
+  color: #eeeeee;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 7px;
+  opacity: 0;
+  z-index: -2; }
+
+.notification_negative {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: red;
+  color: #eeeeee;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 7px;
+  opacity: 0;
+  z-index: -2; }
 
 #backdrop {
   display: none;

@@ -5,9 +5,15 @@
   font-family: 'DM Sans', sans-serif;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   overflow-x: hidden;
+  position: relative;
+  min-height: 100%;
 }
 
 #background {
@@ -19,6 +25,7 @@ body {
   z-index: -1;
 }
 
+// UI
 header {
   width: 100%;
   height: clamp(5vh, 70px, 10vh);
@@ -75,12 +82,29 @@ header {
   }
 }
 
+.header_actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  img {
+    height: 20px;
+    width: 20px;
+    transition: transform 0.5s;
+
+    &:hover {
+      transform: rotateY(180deg);
+    }
+  }
+}
+
+// Game zone
 #content {
   position: relative;
-  height: 90vh;
-  width: 100vw;
+  min-height: 100%;
+  width: 100%;
   padding-top: 40px;
-  overflow-x: hidden;
+  //overflow-x: hidden;
 }
 
 #homepage {
@@ -101,7 +125,7 @@ header {
 #gamezone {
   position: absolute;
   transition: all 0.5s;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   transform: translateX(100%);
   display: flex;
@@ -191,6 +215,34 @@ header {
   position: absolute;
   max-height: 70px;
   max-width: 70px;
+}
+
+.notification_positive {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: green;
+  color: #eeeeee;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 7px;
+  opacity: 0;
+  z-index: -2;
+}
+
+.notification_negative {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: red;
+  color: #eeeeee;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 7px;
+  opacity: 0;
+  z-index: -2;
 }
 
 #backdrop {

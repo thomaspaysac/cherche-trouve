@@ -30,6 +30,9 @@ const homePage = document.getElementById('homepage');
 const gamezone = document.getElementById('gamezone');
 const gamezoneElements = document.querySelector('.gamezone-elements');
 const backdrop = document.getElementById('backdrop');
+const notifPositive = document.querySelector('.notification_positive');
+const notifNegative = document.querySelector('.notification_negative');
+
 document.getElementById('nav_new-game').addEventListener('click', () => returnToHome());
 
 
@@ -186,13 +189,26 @@ const checkCharacter = (x, y, coord, index) => {
     charData[index].found = true;
     document.getElementById(charData[index].char).style.display = 'none';
     addPinImage(pinImgSrc, coord[0], coord[1]);
+    notifPositive.style.transition = 'all 0.5s';
+    notifPositive.style.zIndex = '2';
+    notifPositive.style.opacity = '100%';
+    setTimeout(() => {
+      notifPositive.style.zIndex = '-2';
+      notifPositive.style.opacity = '0';
+    }, 3000)
     updateDisplay();
     // Si tous les personnages ont été trouvés, arrête le timer
     if (allCharsFound()) {
       endGame()
     }
   } else {
-    console.log('Nope');
+    notifNegative.style.transition = 'all 0.5s';
+    notifNegative.style.zIndex = '2';
+    notifNegative.style.opacity = '100%';
+    setTimeout(() => {
+      notifNegative.style.zIndex = '-2';
+      notifNegative.style.opacity = '0';
+    }, 3000)
   }
 };
 
@@ -207,6 +223,7 @@ const allCharsFound = () => {
 
 
 const updateDisplay = () => {
+
   homePage.style.transform = 'translateX(-100%)';
   gamezone.style.transform = 'translateX(0%)';
   gamezoneElements.style.display = 'block';
@@ -215,6 +232,7 @@ const updateDisplay = () => {
 const returnToHome = () => {
   clearInterval(timer);
   gameOverModal.style.display = 'none';
+  backdrop.style.display = 'none';
   gamezone.style.transform = 'translateX(100%)';
   homePage.style.transform = 'translateX(0%)';
   gamezoneElements.style.display = 'none';
@@ -303,3 +321,5 @@ const initCarousel = () => {
 
 
 export { checkCharacter, allCharsFound };
+
+// Add feedback to clicks (wrong guess // good guess)
